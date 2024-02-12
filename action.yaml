@@ -1,0 +1,36 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: action
+name: 'SonarQube CloudBees Action'
+description: 'SonarQube CloudBees Action'
+
+inputs:
+  source:
+    description: 'SonarQube source'
+    default: ${{ cloudbees.workspace }}
+  project-key:
+    description: 'SonarQube Project Key'
+    required: true
+    default: ''
+  host-url:
+    description: 'SonarQube Host URL'
+    required: true
+    default: 'https://sonarqube.cb-demos.io'
+  token:
+    description: 'SonarQube token'
+    required: true
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - id: sonarqube-scan
+      kind: scan
+      uses: docker://sonarsource/sonar-scanner-cli:5
+      shell: sh
+      run: |
+        sonar-scanner \
+          -Dsonar.projectKey=${{ inputs.project-key }} \
+          -Dsonar.sources=${{ inputs.sources }} \
+          -Dsonar.host.url=${{ inputs.host-url }} \
+          -Dsonar.login=${{ inputs.token }}
+
