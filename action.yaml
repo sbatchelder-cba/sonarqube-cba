@@ -4,7 +4,7 @@ name: 'SonarQube CloudBees Action'
 description: 'SonarQube CloudBees Action'
 
 inputs:
-  source:
+  sources:
     description: 'SonarQube source'
     default: ${{ cloudbees.workspace }}
   project-key:
