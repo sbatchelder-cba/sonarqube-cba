@@ -24,6 +24,7 @@ runs:
   using: composite
   steps:
     - id: sonarqube-scan
+      name: SonarQube Scan
       kind: scan
       uses: docker://sonarsource/sonar-scanner-cli:5
       shell: sh
